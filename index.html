@@ -1,1 +1,204 @@
-Hello World
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>youBot-py &mdash; youbot-py 0.1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="youbot-py 0.1.0 documentation" href="#" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li><a href="#">youbot-py 0.1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="youbot-py">
+<h1>youBot-py<a class="headerlink" href="#youbot-py" title="Permalink to this headline">¶</a></h1>
+<p>This wrapper is intended for those who want to try pthon as a stand-alone language to work on youBot:</p>
+<ul class="simple">
+<li>The youbot-py is a pure python wrapper for the youbot_driver.</li>
+<li>Protoytping and a scripting layer has become an inevitable entity.</li>
+<li>Developing a python wrapper for youBot with out any dependency of framework was the aim of this wrapper.</li>
+<li>For issues or bug report, please raise a ticket to <a class="reference external" href="mailto:hotline&#37;&#52;&#48;youbot-store&#46;com">hotline<span>&#64;</span>youbot-store<span>&#46;</span>com</a></li>
+</ul>
+<div class="toctree-wrapper compound">
+<ul class="simple">
+</ul>
+</div>
+</div>
+<div class="section" id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<p>Please follow the below installation instructions:</p>
+<ul>
+<li><p class="first">Compile <a class="reference external" href="https://github.com/youbot/youbot_driver">youbot_driver</a> and set the environment variables. ROS framework is not required.</p>
+<blockquote>
+<div><ul class="simple">
+<li>export LD_LIBRARY_PATH=/path_to_youbot_driver/lib/</li>
+<li>export YOUBOT_HOME=/path_to_youbot_driver</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p>Building and Installing the wrapper:</p>
+<ul>
+<li><p class="first">Build and Install.</p>
+<blockquote>
+<div><ul class="simple">
+<li>git clone <a class="reference external" href="https://github.com/praman2s/youbot-py.git">https://github.com/praman2s/youbot-py.git</a></li>
+<li>cd youbot-py</li>
+<li>python setup.py build &#8211;build-base=.</li>
+<li>python setup.py install</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p>Now the wrapper is ready to be tested.</p>
+</div>
+<div class="section" id="manual">
+<h1>Manual<a class="headerlink" href="#manual" title="Permalink to this headline">¶</a></h1>
+<p>The whole wrapper is divided into three parts:</p>
+<ul class="simple">
+<li>Communication with youbot.</li>
+<li>Getters and Setters for youbot arm.</li>
+<li>Getters and setters for youbot base.</li>
+</ul>
+<div class="section" id="communication-with-youbot">
+<h2>Communication with youbot<a class="headerlink" href="#communication-with-youbot" title="Permalink to this headline">¶</a></h2>
+<p>This sets up the communication between PC and youBot ethercat drivers:</p>
+<div class="highlight-python"><pre>from youbotpy import *   &lt;-------------- Imports all the modules that are being exposed
+robot = robot()            &lt;-------------Tries to establish connection, if not throws exception
+robot.Calibrate()             &lt;----------Optional. For some users who want candle positon as initial pose.</pre>
+</div>
+</div>
+<div class="section" id="getters-and-setters-for-youbot-arm">
+<h2>Getters and Setters for youbot arm<a class="headerlink" href="#getters-and-setters-for-youbot-arm" title="Permalink to this headline">¶</a></h2>
+<p>The wrapper allows you to work with arm alone. Config files have to altered accordingly:</p>
+<div class="highlight-python"><pre>arm  = robot.GetArm()[0]   &lt;------------- Get the first arm connected.(Support for dual arm as well)
+arm2 = robot.GetArm()[1]   &lt;------------- Get the second arm connected. (throws error if not connected)
+arm.GetJointValues()         &lt;----------- Returns the current joint value as 5x1 array.
+arm.SetJointValues(value)    &lt;----------- Sets joint values. value should be 5x1 array.
+arm.GetVelocityValues()      &lt;----------- Returns the current joint velocity as 5x1 array.
+arm.SetVelocityValues(value) &lt;----------- Sets joint velocity values. value should be 5x1 array.
+arm.GetTorqueValues()        &lt;----------- Returns the current joint torque values as 5x1 array.
+arm.SetTorqueValues(value)    &lt;----------- Sets joint toruque values. value should be 5x1 array.</pre>
+</div>
+</div>
+<div class="section" id="getters-and-setters-for-youbot-base">
+<h2>Getters and Setters for youbot base<a class="headerlink" href="#getters-and-setters-for-youbot-base" title="Permalink to this headline">¶</a></h2>
+<p>The wrapper allows you to work with base alone. Config files have to altered accordingly:</p>
+<div class="highlight-python"><pre>base = robot.GetBase()  &lt;-------------- Tries to check if the base is connected.
+base.SetVelocity([x,y,theta]) &lt;-------- Sets the base velocity to x,y and theta.
+base.GetVelocity()               &lt;----- Returns a 3x1 (x,y,\theta) velocity vector.</pre>
+</div>
+</div>
+</div>
+<div class="section" id="examples">
+<h1>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h1>
+<p>This is an example file where it takes three lines to get connected to youBot:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">youbotpy</span> <span class="kn">import</span> <span class="o">*</span>   <span class="c">#exposes youbot_driver to python</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="n">robot</span> <span class="o">=</span> <span class="n">robot</span><span class="p">()</span>    <span class="c"># Calls the constructor . Important to call at the begining</span>
+<span class="n">robot</span><span class="o">.</span><span class="n">Calibrate</span><span class="p">()</span>  <span class="c"># Sets the robot in candle position and sets encoder to zero</span>
+<span class="n">joint_values</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="c"># some position that of the arm that the user demands</span>
+<span class="n">robot</span><span class="o">.</span><span class="n">SetArmJointValues</span><span class="p">(</span><span class="n">joint_values</span><span class="p">)</span> <span class="c"># sets the joint values</span>
+<span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">current</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+<span class="k">while</span> <span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="o">-</span><span class="n">current</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">):</span>
+        <span class="n">robot</span><span class="o">.</span><span class="n">SetBaseVelocity</span><span class="p">([</span><span class="mf">0.1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span> <span class="c">#Sets the base velocity to x - 0.1 for 5 seconds</span>
+
+<span class="k">print</span> <span class="s">&quot;End of Hello World..!!!&quot;</span>
+</pre></div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="#">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">youBot-py</a><ul>
+</ul>
+</li>
+<li><a class="reference internal" href="#installation">Installation</a></li>
+<li><a class="reference internal" href="#manual">Manual</a><ul>
+<li><a class="reference internal" href="#communication-with-youbot">Communication with youbot</a></li>
+<li><a class="reference internal" href="#getters-and-setters-for-youbot-arm">Getters and Setters for youbot arm</a></li>
+<li><a class="reference internal" href="#getters-and-setters-for-youbot-base">Getters and Setters for youbot base</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#examples">Examples</a></li>
+</ul>
+
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/index.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li><a href="#">youbot-py 0.1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Praveen Ramanujam.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>
